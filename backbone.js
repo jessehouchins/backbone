@@ -1338,13 +1338,13 @@
     // an element from the `id`, `className` and `tagName` properties.
     _ensureElement: function() {
       if (!this.el) {
-        var attrs = _.extend({}, _.result(this, 'attributes'));
-        if (this.id) attrs.id = _.result(this, 'id');
-        if (this.className) attrs['class'] = _.result(this, 'className');
-        var $el = Backbone.$('<' + _.result(this, 'tagName') + '>').attr(attrs);
+        var attrs = _.extend({}, result(this, 'attributes'));
+        if (this.id) attrs.id = result(this, 'id');
+        if (this.className) attrs['class'] = result(this, 'className');
+        var $el = Backbone.$('<' + result(this, 'tagName') + '>').attr(attrs);
         this.setElement($el, false);
       } else {
-        this.setElement(_.result(this, 'el'), false);
+        this.setElement(result(this, 'el'), false);
       }
     }
 
@@ -1492,5 +1492,11 @@
   var urlError = function() {
     throw new Error('A "url" property or function must be specified');
   };
+
+  // Get the value of an object property or method in context of the object (unlike _.result).
+  var result = function(obj, prop, arguments){
+    prop = obj[prop]
+    return _.isFunction(prop) ? prop.call(obj) : prop
+  }
 
 }).call(this);

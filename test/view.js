@@ -23,6 +23,23 @@ $(document).ready(function() {
     equal(view.options.other, 'non-special-option');
   });
 
+  test("constructor functions", 4, function() {
+
+    var View = Backbone.View.extend({
+      attributes  : function(){ return {"title": "TITLE" + this.options.testProp} },
+      id          : function(){ return "ID" + this.options.testProp },
+      className   : function(){ return "CLASS" + this.options.testProp },
+      tagName     : function(){ return "TAG" + this.options.testProp }
+    });
+
+    view = new View({testProp: "FOO"})
+
+    equal(view.el.title, 'TITLEFOO');
+    equal(view.el.id, 'IDFOO');
+    equal(view.el.className, 'CLASSFOO');
+    equal(view.el.tagName, 'TAGFOO');
+  });
+
   test("jQuery", 1, function() {
     var view = new Backbone.View;
     view.setElement('<p><a><b>test</b></a></p>');
